@@ -1,0 +1,42 @@
+.side-nav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 250px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(151, 190, 209); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.side-nav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #181010;
+    display: block;
+}
+
+.side-nav a:hover {
+    color: #f1f1f1;
+}
+
+.grid-container {
+    background: lightblue;
+}
+
+.item {
+    background: lightsalmon;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.grid-container {
+    display: grid;
+    /* grid-template-columns: 200px 100px 100px; */
+    grid-template-columns: repeat(4, 20%);
+    grid-template-rows: auto;
+    grid-gap: 20px;
+}

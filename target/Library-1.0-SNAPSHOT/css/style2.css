@@ -1,0 +1,18 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-cell {
+    text-align: center;
+    background-color: bisque;
+    height: 50px;
+    border: 1px;
+    border-color: black;
+    width: 20%;
+
+}
