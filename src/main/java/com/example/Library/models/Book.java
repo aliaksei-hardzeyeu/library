@@ -15,7 +15,6 @@ public class Book {
     private String status;
     private int amount;
     private int borrows;
-    private String coverPath;
 
     public Book() {
     }
@@ -48,13 +47,6 @@ public class Book {
     }
 
 
-    public String getCoverPath() {
-        return coverPath;
-    }
-
-    public void setCoverPath(String coverPath) {
-        this.coverPath = coverPath;
-    }
 
     public int getAmount() {
         return amount;

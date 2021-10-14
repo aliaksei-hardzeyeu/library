@@ -17,7 +17,7 @@
     <div class="table-values">
         table-values
 
-        <form id="send-values" action="${pageContext.request.contextPath}/add_book" method="post">
+        <form id="send-values" action="${pageContext.request.contextPath}/add_book" method="post" enctype="multipart/form-data">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value=""><br>
 
@@ -34,7 +34,7 @@
             <input type="text" id="genres" name="genres" value=""><br>
 
             <label for="page_count">Page count:</label>
-            <input type="number" id="page_count" name="page_count" value=""><br>
+            <input type="text" id="page_count" name="page_count" value=""><br>
 
             <label for="isbn">ISBN:</label>
             <input type="text" id="isbn" name="isbn" value=""><br>
@@ -46,11 +46,11 @@
             <input type="number" id="tot_amount" name="tot_amount" value=""><br>
 
             <label for="borrows">Borrows:</label>
-            <input type="borrows" id="borrows" name="borrows" value=""><br>
+            <input type="number" id="borrows" name="borrows" value=""><br>
 
             <div>
                 <label for="file">Choose a file</label>
-                <input type="file" id="file" name="myFile">
+                <input type="file" id="file" name="cover_file">
             </div>
 
             <%--            <input type="submit" value="Submit">--%>

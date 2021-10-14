@@ -47,7 +47,6 @@ public class BookDAO {
             getGenresSet(book);
             getAmountOfBooks(book);
             getBorrows(book);
-            getCover(book);
 
             book.setStatus(BookServices.statusValue(book));
 
@@ -90,7 +89,6 @@ public class BookDAO {
             getGenresSet(book);
             getAmountOfBooks(book);
             getBorrows(book);
-            getCover(book);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,23 +97,6 @@ public class BookDAO {
         return book;
     }
 
-    /**
-     * Method retrieves path of book cover from DB and writes it to Book book
-     * @param book
-     * @throws SQLException
-     */
-    public void getCover(Book book) throws SQLException {
-        String query = "SELECT books_cover_path FROM books_covers WHERE isbn = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, book.getISBN());
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        result.next();
-
-        book.setCoverPath(result.getString("books_cover_path"));
-    }
 
 
     /**
@@ -207,8 +188,7 @@ public class BookDAO {
 
     /**
      * Adds book`s parameters to DB, creates new entry
-     *
-     * @param title
+     *  @param title
      * @param publisher
      * @param page_count
      * @param isbn
@@ -218,7 +198,7 @@ public class BookDAO {
      * @param genres
      */
     public void addBook(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
-                        Set<String> authors, Set<String> genres, int amount, int borrows, String coverPath) {
+                        Set<String> authors, Set<String> genres, int amount, int borrows) {
 
         String query = "INSERT INTO books_general (title, publisher, page_count, isbn, desc_rip, publ_date, stat)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -241,7 +221,6 @@ public class BookDAO {
 
             addAmount(isbn, amount);
             addBorrows(isbn, borrows);
-            addCover(isbn, coverPath);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

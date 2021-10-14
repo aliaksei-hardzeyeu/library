@@ -12,8 +12,9 @@
 <body>
 <div class="main-container">
     <div class="cover">
-        
-        <img src="<c:out value="${book.title}"/>" width=50% alt="cover_file">
+        // using Web Server for Chrome due to security issues -> Chrome does not allow img viewing from local sources
+        // so we need to emulate server for local files
+        <img src="http://127.0.0.1:8887/${book.ISBN}.png" width=100% alt="cover_file">
     </div>
 
     <div class="table-values">
@@ -53,7 +54,7 @@
 
             <div>
                 <label for="file">Choose a file</label>
-                <input type="file" id="file" name="myFile">
+                <input type="file" id="file" name="file">
             </div>
 
         </form>
