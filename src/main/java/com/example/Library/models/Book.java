@@ -15,6 +15,7 @@ public class Book {
     private String status;
     private int amount;
     private int borrows;
+    private String coverExtension;
 
     public Book() {
     }
@@ -47,6 +48,13 @@ public class Book {
     }
 
 
+    public String getCoverExtension() {
+        return coverExtension;
+    }
+
+    public void setCoverExtension(String coverExtension) {
+        this.coverExtension = coverExtension;
+    }
 
     public int getAmount() {
         return amount;

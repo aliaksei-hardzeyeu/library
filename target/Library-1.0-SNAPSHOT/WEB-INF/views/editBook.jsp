@@ -14,13 +14,13 @@
     <div class="cover">
         // using Web Server for Chrome due to security issues -> Chrome does not allow img viewing from local sources
         // so we need to emulate server for local files
-        <img src="http://127.0.0.1:8887/${book.ISBN}.png" width=100% alt="cover_file">
+        <img src="http://127.0.0.1:8887/${book.ISBN}${book.coverExtension}" height=70% alt="cover_file">
     </div>
 
     <div class="table-values">
         table-values
 
-        <form id="send-values" action="${pageContext.request.contextPath}/add_book" method="post">
+        <form id="send-values" action="${pageContext.request.contextPath}/upload_file" method="post" enctype="multipart/form-data">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value="<c:out value="${book.title}"/>"><br>
 
@@ -54,11 +54,14 @@
 
             <div>
                 <label for="file">Choose a file</label>
-                <input type="file" id="file" name="file">
+                <input type="file" id="file" name="file" accept="image/*">
             </div>
 
         </form>
         <input type="submit" form="send-values">
+        <button onclick="window.location.href='/';">
+            Discard changes
+        </button>
 
 
     </div>

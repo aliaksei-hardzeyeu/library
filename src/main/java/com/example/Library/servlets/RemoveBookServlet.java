@@ -1,12 +1,14 @@
 package com.example.Library.servlets;
 
 import com.example.Library.dao.BookDAO;
+import com.example.Library.services.BookServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "RemoveBookServlet", value = "/remove_book")
 public class RemoveBookServlet extends HttpServlet {
@@ -26,15 +28,22 @@ public class RemoveBookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ISBN = request.getParameter("isbn");
-        bookDAO.removeBook(ISBN);
+
+        File cover;
+        try {
+            cover = new File("E:\\books_covers_server\\" + ISBN + bookDAO.getCoverExtensionFromDB(ISBN));
 
 
-        File cover = new File("E:\\books_covers_server\\" + ISBN + ".png");
+            if (cover.delete()) {
+                System.out.println(cover.getName() + " deleted");
+            } else {
+                System.out.println(cover.getName() + " delete failed");
+            }
 
-        if (cover.delete()) {
-            System.out.println(cover.getName() + "deleted");
-        } else {
-            System.out.println(cover.getName() + "delete failed");
+            bookDAO.removeBook(ISBN);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
 

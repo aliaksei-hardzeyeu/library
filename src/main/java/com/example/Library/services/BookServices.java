@@ -2,6 +2,7 @@ package com.example.Library.services;
 
 import com.example.Library.models.Book;
 
+import javax.servlet.http.Part;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,12 +46,12 @@ public class BookServices {
         return genresFinal;
     }
 
-    /**
-     * Method without checking
-     * @param string
-     * @return
-     */
-    public static int stringToInt (String string) {
-        return Integer.parseInt(string);
+    public static String getFileExtension(final Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('.')).trim().replace("\"", "");
+            }
+        }
+        return null;
     }
 }

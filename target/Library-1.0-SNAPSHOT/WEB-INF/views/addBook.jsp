@@ -17,7 +17,7 @@
     <div class="table-values">
         table-values
 
-        <form id="send-values" action="${pageContext.request.contextPath}/add_book" method="post" enctype="multipart/form-data">
+        <form id="send-values" action="${pageContext.request.contextPath}/upload_file" method="post" enctype="multipart/form-data">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value=""><br>
 
@@ -50,14 +50,16 @@
 
             <div>
                 <label for="file">Choose a file</label>
-                <input type="file" id="file" name="cover_file">
+                <input type="file" id="file" name="file" accept="image/*">
             </div>
 
             <%--            <input type="submit" value="Submit">--%>
         </form>
         <input type="submit" form="send-values">
         <%--        <input type="submit" form="send-img">--%>
-
+        <button onclick="window.location.href='/';">
+            Discard changes
+        </button>
 
     </div>
 </div>

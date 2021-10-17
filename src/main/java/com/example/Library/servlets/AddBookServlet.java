@@ -22,7 +22,6 @@ import java.util.Set;
 @MultipartConfig
 public class AddBookServlet extends HttpServlet {
     private BookDAO bookDAO;
-    private final String UPLOAD_DIRECTORY = "E:\\books_covers_server";
 
     @Override
     public void init() {
@@ -43,31 +42,25 @@ public class AddBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String title = request.getParameter("title");
         Set<String> authors = BookServices.stringAuthorsToSet(request.getParameter("authors"));
         String publisher = request.getParameter("publisher");
         String publish_date = request.getParameter("publish_date");
         Set<String> genres = BookServices.stringGenresToSet(request.getParameter("genres"));
-        int page_count = BookServices.stringToInt(request.getParameter("page_count"));
+        int page_count = Integer.parseInt(request.getParameter("page_count"));
         String isbn = request.getParameter("isbn");
         String description = request.getParameter("description");
         int tot_amount = Integer.parseInt(request.getParameter("tot_amount"));
         int borrows = Integer.parseInt(request.getParameter("borrows"));
 
+        if (request.getAttribute("cover_extension") != (Integer) 1) {
+            String coverExtension = (String) request.getAttribute("cover_extension");
+            bookDAO.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows, coverExtension);
+        } else {
+            bookDAO.addBookWithSameCover(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows);
+        }
 
-//        request.setAttribute("filePart", request.getParameter("filePart"));
-//        request.setAttribute("isbn", request.getParameter("isbn"));
-
-        Part filePart = request.getPart("file");
-        System.out.println(filePart.getName());
-//
-//        getServletContext().setAttribute("filePart", filePart);
-//        getServletContext().setAttribute("isbn", isbn);
-
-
-        bookDAO.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows);
-
-        request.getRequestDispatcher("/upload_file").forward(request, response);
-
+        response.sendRedirect("/");
     }
 }

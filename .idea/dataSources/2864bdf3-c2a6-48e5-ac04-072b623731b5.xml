@@ -930,7 +930,7 @@ SELECT|sys.sys_config
     <table id="290" parent="9" name="books_amount"/>
     <table id="291" parent="9" name="books_authors"/>
     <table id="292" parent="9" name="books_borrows"/>
-    <table id="293" parent="9" name="books_covers"/>
+    <table id="293" parent="9" name="books_covers_ext"/>
     <table id="294" parent="9" name="books_general"/>
     <table id="295" parent="9" name="books_genres"/>
     <column id="296" parent="290" name="amount_id">
@@ -1029,7 +1029,7 @@ SELECT|sys.sys_config
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="314" parent="293" name="books_cover_path">
+    <column id="314" parent="293" name="books_cover_ext">
       <Position>1</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
@@ -1038,7 +1038,7 @@ SELECT|sys.sys_config
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="316" parent="293" name="cover_id">
+    <column id="316" parent="293" name="cover_ext_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
@@ -1050,7 +1050,7 @@ SELECT|sys.sys_config
     </index>
     <key id="318" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>cover_id</ColNames>
+      <ColNames>cover_ext_id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="319" parent="293" name="cover_key">
@@ -1128,6 +1128,8 @@ SELECT|sys.sys_config
       <ColNames>isbn</ColNames>
       <RefTableName>books_general</RefTableName>
       <RefColNames>isbn</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>

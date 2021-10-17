@@ -29,13 +29,11 @@ public class EditBookServlet extends HttpServlet {
         Book book = bookDAO.getBook(ISBN);
 
         request.setAttribute("book", book);
-        getServletContext().setAttribute("editableISBN", ISBN);
 
         request.getRequestDispatcher("/WEB-INF/views/editBook.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
