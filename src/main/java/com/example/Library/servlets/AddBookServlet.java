@@ -1,6 +1,7 @@
 package com.example.Library.servlets;
 
 import com.example.Library.dao.BookDAO;
+import com.example.Library.models.Book;
 import com.example.Library.services.BookServices;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -42,7 +43,6 @@ public class AddBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String title = request.getParameter("title");
         Set<String> authors = BookServices.stringAuthorsToSet(request.getParameter("authors"));
         String publisher = request.getParameter("publisher");
@@ -54,12 +54,12 @@ public class AddBookServlet extends HttpServlet {
         int tot_amount = Integer.parseInt(request.getParameter("tot_amount"));
         int borrows = Integer.parseInt(request.getParameter("borrows"));
 
-        if (request.getAttribute("cover_extension") != (Integer) 1) {
-            String coverExtension = (String) request.getAttribute("cover_extension");
-            bookDAO.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows, coverExtension);
-        } else {
-            bookDAO.addBookWithSameCover(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows);
-        }
+
+        Book book = (Book) getServletContext().getAttribute("book");
+        String coverExtension = book.getCoverExtension();
+
+        bookDAO.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows, coverExtension);
+
 
         response.sendRedirect("/");
     }

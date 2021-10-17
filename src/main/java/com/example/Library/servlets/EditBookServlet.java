@@ -29,7 +29,8 @@ public class EditBookServlet extends HttpServlet {
         Book book = bookDAO.getBook(ISBN);
 
         request.setAttribute("book", book);
-
+        getServletContext().setAttribute("book", book);
+        System.out.println(getServletContext().getAttribute("book").toString());
         request.getRequestDispatcher("/WEB-INF/views/editBook.jsp").forward(request, response);
     }
 

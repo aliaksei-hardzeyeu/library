@@ -151,6 +151,6 @@ public class Book {
     public String toString() {
         return  " title = " + title +"| authors=" + authors + "| publisher= " + publisher + "| genre= " + genres + "| pageCount= " + pageCount +
                 "| ISBN= " + ISBN + "| description=" + description + "| publishingDate= " + publishingDate + "| status= " + status +
-                "| amount= " + amount + "| borrows= " + borrows;
+                "| amount= " + amount + "| borrows= " + borrows + "| coverExtension= " + coverExtension;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Library.servlets;
 
+import com.example.Library.models.Book;
 import com.example.Library.services.BookServices;
 
 import javax.servlet.*;
@@ -19,14 +20,8 @@ public class FileUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         final Part filePart = request.getPart("file");
-        System.out.println(filePart.getName());
-        int x = 1;
 
-        if (filePart == null) {
-            request.setAttribute("cover_extension", x);
-            request.getRequestDispatcher("/add_book").forward(request, response);
-
-        } else {
+        if (filePart.getSize() != 0) {
 
             final String isbn = request.getParameter("isbn");
             final String fileExtension = BookServices.getFileExtension(filePart);
@@ -37,7 +32,7 @@ public class FileUploadServlet extends HttpServlet {
 
             request.setAttribute("cover_extension", fileExtension);
         }
-
         request.getRequestDispatcher("/add_book").forward(request, response);
+
     }
 }

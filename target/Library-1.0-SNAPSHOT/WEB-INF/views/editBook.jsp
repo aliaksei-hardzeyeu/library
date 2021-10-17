@@ -50,7 +50,7 @@
             <input type="number" id="tot_amount" name="tot_amount" value="<c:out value="${book.amount}"/>"><br>
 
             <label for="borrows">Borrows:</label>
-            <input type="borrows" id="borrows" name="borrows" value="<c:out value="${book.borrows}"/>"><br>
+            <input type="number" id="borrows" name="borrows" value="<c:out value="${book.borrows}"/>"><br>
 
             <div>
                 <label for="file">Choose a file</label>

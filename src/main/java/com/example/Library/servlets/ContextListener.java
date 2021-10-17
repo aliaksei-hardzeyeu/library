@@ -1,6 +1,7 @@
 package com.example.Library.servlets;
 
 import com.example.Library.dao.BookDAO;
+import com.example.Library.models.Book;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -10,8 +11,8 @@ import javax.servlet.http.Part;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
-    private Part filePart;
     private BookDAO bookDAO;
+    private Book book;
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -19,7 +20,6 @@ public class ContextListener implements ServletContextListener {
 
         bookDAO = new BookDAO();
         servletContext.setAttribute("bookDAO", bookDAO);
-        filePart = null;
 
     }
 
