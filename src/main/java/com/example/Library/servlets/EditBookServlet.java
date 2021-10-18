@@ -30,7 +30,6 @@ public class EditBookServlet extends HttpServlet {
 
         request.setAttribute("book", book);
         getServletContext().setAttribute("book", book);
-        System.out.println(getServletContext().getAttribute("book").toString());
         request.getRequestDispatcher("/WEB-INF/views/editBook.jsp").forward(request, response);
     }
 
