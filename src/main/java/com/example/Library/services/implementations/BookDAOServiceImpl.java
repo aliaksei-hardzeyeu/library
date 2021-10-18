@@ -20,7 +20,7 @@ public class BookDAOServiceImpl implements IBookDAOService {
         connection = worker.getConnection();
     }
 
-     {
+    {
         bookService = new BookServiceImpl();
     }
 
