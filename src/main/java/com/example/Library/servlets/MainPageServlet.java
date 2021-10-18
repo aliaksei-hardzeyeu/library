@@ -1,7 +1,9 @@
 package com.example.Library.servlets;
 
-import com.example.Library.dao.BookDAO;
 import com.example.Library.models.Book;
+import com.example.Library.services.IBookDAOService;
+import com.example.Library.services.IBookService;
+import com.example.Library.services.ServiceFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,17 +14,13 @@ import java.util.List;
 
 @WebServlet(name = "MainPageServlet", value = "/")
 public class MainPageServlet extends HttpServlet {
-    private BookDAO bookDAO;
+    private IBookDAOService bookDAOService;
+    private IBookService bookService;
 
     @Override
     public void init() {
-        final Object bookDAO = getServletContext().getAttribute("bookDAO");
-
-        if (!(bookDAO instanceof BookDAO)) {
-            throw new IllegalStateException("Problem with initialization of BookDAO from ServletContext");
-        } else {
-            this.bookDAO = (BookDAO) bookDAO;
-        }
+        bookService = ServiceFactory.getBookService();
+        bookDAOService = ServiceFactory.getBookDAOService();
     }
 
     @Override
@@ -30,9 +28,9 @@ public class MainPageServlet extends HttpServlet {
         List<Book> listOfBooks;
 
         try {
-            listOfBooks = bookDAO.getListOfAllBooks();
+            listOfBooks = bookDAOService.getListOfAllBooks();
             request.setAttribute("listOfBooks", listOfBooks);
-            request.getRequestDispatcher("WEB-INF/views/mp4.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/views/mainPage.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.example.Library.dao;
+package com.example.Library.connection;
 
 import java.sql.Connection;
 import com.mysql.cj.jdbc.Driver;

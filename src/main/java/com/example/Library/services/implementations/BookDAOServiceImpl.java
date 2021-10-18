@@ -1,23 +1,27 @@
-package com.example.Library.dao;
+package com.example.Library.services.implementations;
 
-import java.io.File;
-import java.io.InputStream;
+import com.example.Library.connection.DBWorker;
+import com.example.Library.models.Book;
+import com.example.Library.services.IBookDAOService;
+import com.example.Library.services.IBookService;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.example.Library.models.Book;
-import com.example.Library.services.BookServices;
-
-
-public class BookDAO {
-    private static Connection connection;
+public class BookDAOServiceImpl implements IBookDAOService {
+    private final static Connection connection;
+    private final IBookService bookService;
 
     static {
         DBWorker worker = new DBWorker();
         connection = worker.getConnection();
+    }
+
+     {
+        bookService = new BookServiceImpl();
     }
 
     /**
@@ -230,7 +234,7 @@ public class BookDAO {
             preparedStatement.setString(4, isbn);
             preparedStatement.setString(5, desc);
             preparedStatement.setString(6, publ_date);
-            preparedStatement.setString(7, BookServices.statusValue(amount, borrows));
+            preparedStatement.setString(7, bookService.statusValue(amount, borrows));
 
             preparedStatement.execute();
 
@@ -261,7 +265,7 @@ public class BookDAO {
      * @param genres
      */
     public void addBookWithSameCover(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
-                        Set<String> authors, Set<String> genres, int amount, int borrows) {
+                                     Set<String> authors, Set<String> genres, int amount, int borrows) {
 
         String query = "REPLACE INTO books_general (title, publisher, page_count, isbn, desc_rip, publ_date, stat)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -274,7 +278,7 @@ public class BookDAO {
             preparedStatement.setString(4, isbn);
             preparedStatement.setString(5, desc);
             preparedStatement.setString(6, publ_date);
-            preparedStatement.setString(7, BookServices.statusValue(amount, borrows));
+            preparedStatement.setString(7, bookService.statusValue(amount, borrows));
 
             preparedStatement.execute();
 
@@ -429,6 +433,4 @@ public class BookDAO {
 
         preparedStatement.execute();
     }
-
-
 }

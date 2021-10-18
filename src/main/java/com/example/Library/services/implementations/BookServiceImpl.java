@@ -1,24 +1,25 @@
-package com.example.Library.services;
+package com.example.Library.services.implementations;
 
 import com.example.Library.models.Book;
+import com.example.Library.services.IBookService;
 
 import javax.servlet.http.Part;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BookServices {
+public class BookServiceImpl implements IBookService {
     /**
      * 1. Method for counting if status is available -> amount of books > borrows. So we
      * need in DAO method for getting amount/borrows
      */
-    public static String statusValue(Book book) {
+    public String statusValue(Book book) {
         int amount = book.getAmount();
         int borrows = book.getBorrows();
 
         return amount - borrows > 0 ? "available" : "unavailable";
     }
 
-    public static String statusValue(int amount, int borrows) {
+    public String statusValue(int amount, int borrows) {
         return amount - borrows > 0 ? "available" : "unavailable";
     }
 
@@ -27,7 +28,7 @@ public class BookServices {
      * @param authors
      * @return
      */
-    public static Set<String> stringAuthorsToSet(String authors) {
+    public Set<String> stringAuthorsToSet(String authors) {
         Set<String> authorsFinal = new HashSet<>();
         authorsFinal.add(authors);
 
@@ -39,14 +40,19 @@ public class BookServices {
      * @param genres
      * @return
      */
-    public static Set<String> stringGenresToSet(String genres) {
+    public Set<String> stringGenresToSet(String genres) {
         Set<String> genresFinal = new HashSet<>();
         genresFinal.add(genres);
 
         return genresFinal;
     }
 
-    public static String getFileExtension(final Part part) {
+    /**
+     * Gets submitted as part file extension from part header
+     * @param part
+     * @return String extension -> .jpg
+     */
+    public String getFileExtension(final Part part) {
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 return content.substring(content.indexOf('.')).trim().replace("\"", "");

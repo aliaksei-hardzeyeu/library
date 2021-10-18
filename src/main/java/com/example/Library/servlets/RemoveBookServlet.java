@@ -1,7 +1,8 @@
 package com.example.Library.servlets;
 
-import com.example.Library.dao.BookDAO;
-import com.example.Library.services.BookServices;
+import com.example.Library.services.IBookDAOService;
+import com.example.Library.services.IBookService;
+import com.example.Library.services.ServiceFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,17 +13,13 @@ import java.sql.SQLException;
 
 @WebServlet(name = "RemoveBookServlet", value = "/remove_book")
 public class RemoveBookServlet extends HttpServlet {
-    private BookDAO bookDAO;
+    private IBookDAOService bookDAOService;
+    private IBookService bookService;
 
     @Override
     public void init() {
-        final Object bookDAO = getServletContext().getAttribute("bookDAO");
-
-        if (!(bookDAO instanceof BookDAO)) {
-            throw new IllegalStateException("Problem with initialization of BookDAO from ServletContext");
-        } else {
-            this.bookDAO = (BookDAO) bookDAO;
-        }
+        bookService = ServiceFactory.getBookService();
+        bookDAOService = ServiceFactory.getBookDAOService();
     }
 
     @Override
@@ -31,7 +28,7 @@ public class RemoveBookServlet extends HttpServlet {
 
         File cover;
         try {
-            cover = new File("E:\\books_covers_server\\" + ISBN + bookDAO.getCoverExtensionFromDB(ISBN));
+            cover = new File("E:\\books_covers_server\\" + ISBN + bookDAOService.getCoverExtensionFromDB(ISBN));
 
 
             if (cover.delete()) {
@@ -40,7 +37,7 @@ public class RemoveBookServlet extends HttpServlet {
                 System.out.println(cover.getName() + " delete failed");
             }
 
-            bookDAO.removeBook(ISBN);
+            bookDAOService.removeBook(ISBN);
 
         } catch (SQLException e) {
             e.printStackTrace();
