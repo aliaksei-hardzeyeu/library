@@ -5,7 +5,7 @@ import com.example.Library.models.Book;
 import javax.servlet.http.Part;
 import java.util.Set;
 
-public interface IBookService {
+public interface BookService {
     String statusValue(Book book);
 
     String statusValue(int amount, int borrows);

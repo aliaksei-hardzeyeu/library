@@ -1,8 +1,8 @@
 package com.example.Library.servlets;
 
 import com.example.Library.models.Book;
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookDAOService;
+import com.example.Library.services.BookService;
 import com.example.Library.services.ServiceFactory;
 
 import javax.servlet.*;
@@ -14,8 +14,8 @@ import java.util.List;
 
 @WebServlet(name = "MainPageServlet", value = "/")
 public class MainPageServlet extends HttpServlet {
-    private IBookDAOService bookDAOService;
-    private IBookService bookService;
+    private BookDAOService bookDAOService;
+    private BookService bookService;
 
     @Override
     public void init() {

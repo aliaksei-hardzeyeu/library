@@ -1,9 +1,7 @@
 package com.example.Library.servlets;
 
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookService;
 import com.example.Library.services.ServiceFactory;
-import com.example.Library.services.implementations.BookServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,7 +14,7 @@ import java.nio.file.StandardCopyOption;
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
     final String path = "E:\\books_covers_server\\";
-    private IBookService bookService;
+    private BookService bookService;
 
     @Override
     public void init() {
@@ -28,7 +26,6 @@ public class FileUploadServlet extends HttpServlet {
         final Part filePart = request.getPart("file");
 
         if (filePart.getSize() != 0) {
-
             final String isbn = request.getParameter("isbn");
             final String fileExtension = bookService.getFileExtension(filePart);
 
@@ -38,7 +35,8 @@ public class FileUploadServlet extends HttpServlet {
 
             request.setAttribute("cover_extension", fileExtension);
         }
-        request.getRequestDispatcher("/add_book").forward(request, response);
 
+
+        request.getRequestDispatcher("/add_book").forward(request, response);
     }
 }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
-public interface IBookDAOService {
+public interface BookDAOService {
     Book getBook(String isbn);
 
     List<Book> getListOfAllBooks() throws SQLException;
@@ -26,7 +26,7 @@ public interface IBookDAOService {
     void addBook(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
                  Set<String> authors, Set<String> genres, int amount, int borrows, String coverExtension);
 
-    void addBookWithSameCover(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
+    void addBookWithoutCover(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
                               Set<String> authors, Set<String> genres, int amount, int borrows);
 
     void addAuthorsSet(String isbn, Set<String> authors) throws SQLException;

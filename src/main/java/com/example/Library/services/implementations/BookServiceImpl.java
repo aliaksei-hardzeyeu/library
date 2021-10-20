@@ -1,13 +1,26 @@
 package com.example.Library.services.implementations;
 
 import com.example.Library.models.Book;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookService;
 
 import javax.servlet.http.Part;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BookServiceImpl implements IBookService {
+public class BookServiceImpl implements BookService {
+    private static BookServiceImpl instance = null;
+
+    BookServiceImpl() {
+
+    }
+//todo: improve sync
+    public synchronized static BookService bookService() {
+        if (instance == null) {
+            instance = new BookServiceImpl();
+        }
+        return instance;
+    }
+
     /**
      * 1. Method for counting if status is available -> amount of books > borrows. So we
      * need in DAO method for getting amount/borrows
@@ -16,7 +29,7 @@ public class BookServiceImpl implements IBookService {
         int amount = book.getAmount();
         int borrows = book.getBorrows();
 
-        return amount - borrows > 0 ? "available" : "unavailable";
+        return amount - borrows > 0 ? "available" : "unavailable";//enum
     }
 
     public String statusValue(int amount, int borrows) {
@@ -25,6 +38,7 @@ public class BookServiceImpl implements IBookService {
 
     /**
      * First iteration of method: now main goal -> turn String into Set, without dividing into different authors
+     *
      * @param authors
      * @return
      */
@@ -37,6 +51,7 @@ public class BookServiceImpl implements IBookService {
 
     /**
      * First iteration of method: now main goal -> turn String into Set, without dividing into different genres
+     *
      * @param genres
      * @return
      */
@@ -49,6 +64,7 @@ public class BookServiceImpl implements IBookService {
 
     /**
      * Gets submitted as part file extension from part header
+     *
      * @param part
      * @return String extension -> .jpg
      */

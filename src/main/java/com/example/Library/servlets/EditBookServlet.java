@@ -1,9 +1,10 @@
 package com.example.Library.servlets;
 
 import com.example.Library.models.Book;
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookDAOService;
+import com.example.Library.services.BookService;
 import com.example.Library.services.ServiceFactory;
+import com.example.Library.services.implementations.BookServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,12 +13,13 @@ import java.io.IOException;
 
 @WebServlet(name = "EditBookServlet", value = "/edit_book")
 public class EditBookServlet extends HttpServlet {
-    private IBookDAOService bookDAOService;
-    private IBookService bookService;
+    private BookDAOService bookDAOService;
+    private BookService bookService;
 
     @Override
     public void init() {
-        bookService = ServiceFactory.getBookService();
+
+        bookService = BookServiceImpl.bookService();
         bookDAOService = ServiceFactory.getBookDAOService();
     }
 
@@ -28,7 +30,7 @@ public class EditBookServlet extends HttpServlet {
 
         request.setAttribute("book", book);
         getServletContext().setAttribute("book", book);
-        request.getRequestDispatcher("/WEB-INF/views/editBook.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/bookPage.jsp").forward(request, response);
     }
 
     @Override

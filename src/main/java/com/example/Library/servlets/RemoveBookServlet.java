@@ -1,7 +1,7 @@
 package com.example.Library.servlets;
 
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookDAOService;
+import com.example.Library.services.BookService;
 import com.example.Library.services.ServiceFactory;
 
 import javax.servlet.*;
@@ -13,8 +13,8 @@ import java.sql.SQLException;
 
 @WebServlet(name = "RemoveBookServlet", value = "/remove_book")
 public class RemoveBookServlet extends HttpServlet {
-    private IBookDAOService bookDAOService;
-    private IBookService bookService;
+    private BookDAOService bookDAOService;
+    private BookService bookService;
 
     @Override
     public void init() {

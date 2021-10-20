@@ -2,8 +2,8 @@ package com.example.Library.services.implementations;
 
 import com.example.Library.connection.DBWorker;
 import com.example.Library.models.Book;
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookDAOService;
+import com.example.Library.services.BookService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BookDAOServiceImpl implements IBookDAOService {
+public class BookDAOServiceImpl implements BookDAOService {
     private final static Connection connection;
-    private final IBookService bookService;
+    private final BookService bookService;
 
     static {
         DBWorker worker = new DBWorker();
@@ -264,7 +264,7 @@ public class BookDAOServiceImpl implements IBookDAOService {
      * @param authors
      * @param genres
      */
-    public void addBookWithSameCover(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
+    public void addBookWithoutCover(String title, String publisher, int page_count, String isbn, String desc, String publ_date,
                                      Set<String> authors, Set<String> genres, int amount, int borrows) {
 
         String query = "REPLACE INTO books_general (title, publisher, page_count, isbn, desc_rip, publ_date, stat)" +

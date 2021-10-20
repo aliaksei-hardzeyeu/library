@@ -1,10 +1,8 @@
 package com.example.Library.servlets;
 
-import com.example.Library.models.Book;
-import com.example.Library.services.IBookDAOService;
-import com.example.Library.services.IBookService;
+import com.example.Library.services.BookDAOService;
+import com.example.Library.services.BookService;
 import com.example.Library.services.ServiceFactory;
-import com.example.Library.services.implementations.BookServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,8 +13,8 @@ import java.util.Set;
 @WebServlet(name = "AddBookServlet", value = "/add_book")
 @MultipartConfig
 public class AddBookServlet extends HttpServlet {
-    private IBookDAOService bookDAOService;
-    private IBookService bookService;
+    private BookDAOService bookDAOService;
+    private BookService bookService;
 
     @Override
     public void init() {
@@ -42,13 +40,14 @@ public class AddBookServlet extends HttpServlet {
         String description = request.getParameter("description");
         int tot_amount = Integer.parseInt(request.getParameter("tot_amount"));
         int borrows = Integer.parseInt(request.getParameter("borrows"));
+        String coverExtension = (String) request.getAttribute("cover_extension");
 
 
-        Book book = (Book) getServletContext().getAttribute("book");
-        String coverExtension = book.getCoverExtension();
-
-        bookDAOService.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows, coverExtension);
-
+        if (coverExtension != null) {
+            bookDAOService.addBook(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows, coverExtension);
+        } else {
+            bookDAOService.addBookWithoutCover(title, publisher, page_count, isbn, description, publish_date, authors, genres, tot_amount, borrows);
+        }
 
         response.sendRedirect("/");
     }
